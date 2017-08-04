@@ -95,10 +95,12 @@ public enum CSGOExternal {
 
 		clientSigScanner.scan();
 		engineSigScanner.scan();
+		
+		System.out.println("Scanned for offsets - this cheat is ready to use. Press a keybind to get started.");
 	}
 	
 
-	public Process getCsgoProcess() {
+	public Process getCSGOProcess() {
 		return this.csgoProcess;
 	}
 

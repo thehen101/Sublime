@@ -27,7 +27,33 @@
     "signatureLength": 19,
     "offset": "FORCEJUMP",
     "offsetFromStart": 2,
-	"module": "CLIENT"
+	  "module": "CLIENT"
+  },
+  {
+    "stringSignature": "55 8B EC 51 53 8A 5D 08",
+    "dereferences": [
+      {
+        "offset": 0,
+        "location": "MODULE"
+      }
+    ],
+    "signatureLength": 8,
+    "offset": "FORCELEFT",
+    "offsetFromStart": 465,
+    "module": "CLIENT"
+  },
+  {
+    "stringSignature": "55 8B EC 51 53 8A 5D 08",
+    "dereferences": [
+      {
+        "offset": 0,
+        "location": "MODULE"
+      }
+    ],
+    "signatureLength": 8,
+    "offset": "FORCERIGHT",
+    "offsetFromStart": 512,
+    "module": "CLIENT"
   },
   {
     "stringSignature": "A1 ?? ?? ?? ?? 33 D2 6A 00 6A 00 33 C9 89 B0",
@@ -44,7 +70,7 @@
     "signatureLength": 15,
     "offset": "ENGINEPOINTER",
     "offsetFromStart": 1,
-	"module": "ENGINE"
+	  "module": "ENGINE"
   },
   {
     "stringSignature": "F3 0F 11 80 ?? ?? ?? ?? D9 46 04 D9 05",
@@ -57,6 +83,6 @@
     "signatureLength": 13,
     "offset": "SETVIEWANGLES",
     "offsetFromStart": 4,
-	"module": "ENGINE"
+	  "module": "ENGINE"
   }
 ]

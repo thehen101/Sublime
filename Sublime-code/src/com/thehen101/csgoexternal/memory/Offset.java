@@ -1,9 +1,11 @@
 package com.thehen101.csgoexternal.memory;
 
 public enum Offset {
-	LOCALPLAYER("LocalPlayer"), 
-	FORCEJUMP("ForceJump"), 
-	ENGINEPOINTER("EnginePointer"), 
+	LOCALPLAYER("LocalPlayer"),
+	FORCEJUMP("ForceJump"),
+	FORCELEFT("ForceLeft"),
+	FORCERIGHT("ForceRight"),
+	ENGINEPOINTER("EnginePointer"),
 	SETVIEWANGLES("SetViewAngles");
 
 	private final String name;

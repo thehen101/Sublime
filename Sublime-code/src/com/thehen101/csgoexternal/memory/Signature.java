@@ -8,16 +8,16 @@ public class Signature {
 	private final Dereference[] dereferences;
 	private final int signatureLength;
 	private final Offset offset;
-	private final byte offsetFromStart;
+	private final short offsetFromStart;
 	private final ModuleLocation module;
 	public transient int bytesFoundCounter;
 	
-	public Signature(Offset off, String sig, byte offset, int sigLength, Dereference[] deref, ModuleLocation mod) {
+	public Signature(Offset off, String sig, short offset, int sigLength, Dereference[] deref, ModuleLocation mod) {
 		this(off, TypeUtil.stringToByteArray(sig), offset, sigLength, deref, mod);
 		this.stringSignature = sig;
 	}
 
-	public Signature(Offset off, int[] sig, byte offset, int sigLength, Dereference[] deref, ModuleLocation mod) {
+	public Signature(Offset off, int[] sig, short offset, int sigLength, Dereference[] deref, ModuleLocation mod) {
 		this.offset = off;
 		this.signature = sig;
 		this.dereferences = deref;
@@ -38,7 +38,7 @@ public class Signature {
 		return this.signatureLength;
 	}
 
-	public byte getOffset() {
+	public short getOffset() {
 		return this.offsetFromStart;
 	}
 

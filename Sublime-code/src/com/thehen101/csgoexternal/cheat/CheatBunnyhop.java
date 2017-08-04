@@ -21,13 +21,22 @@ public class CheatBunnyhop extends Cheat {
 			}
 		}
 	}
+	
+	@Override
+	public void onDisable() {
+		this.setOnGround();
+	}
 
 	private boolean onGround() {
-		return (CSGOExternal.INSTANCE.getCsgoProcess().readInt
+		return (CSGOExternal.INSTANCE.getCSGOProcess().readInt
 				(Offset.LOCALPLAYER.getAddress() + Constants.NETVAR_FLAGS) & 1 << 0) == 0 ? false : true;
 	}
 	
 	private void jump() {
-		CSGOExternal.INSTANCE.getCsgoProcess().writeInt(Offset.FORCEJUMP.getAddress(), 6);
+		CSGOExternal.INSTANCE.getCSGOProcess().writeInt(Offset.FORCEJUMP.getAddress(), 6);
+	}
+	
+	private void setOnGround() {
+		CSGOExternal.INSTANCE.getCSGOProcess().writeInt(Offset.FORCEJUMP.getAddress(), 4);
 	}
 }

@@ -13,6 +13,10 @@ public abstract class Cheat implements Listener {
 		this.keybind = cheatKeybind;
 	}
 	
+	public void onEnable() { }
+	
+	public void onDisable() { }
+	
 	public final String getCheatName() {
 		return this.name;
 	}
@@ -27,9 +31,12 @@ public abstract class Cheat implements Listener {
 	
 	public void toggleCheat() {
 		this.enabled = !this.enabled;
-		if (this.enabled)
+		if (this.enabled) {
 			CSGOExternal.INSTANCE.getEventManager().addListener(this);
-		else
+			this.onEnable();
+		} else {
 			CSGOExternal.INSTANCE.getEventManager().removeListener(this);
+			this.onDisable();
+		}
 	}
 }

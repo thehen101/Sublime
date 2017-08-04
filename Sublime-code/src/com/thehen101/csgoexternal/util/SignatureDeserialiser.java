@@ -21,7 +21,7 @@ public class SignatureDeserialiser implements JsonDeserializer<Signature> {
 		JsonArray ja = jobject.get("dereferences").getAsJsonArray();
 		Dereference[] derefs = new Gson().fromJson(ja.toString(), Dereference[].class);
 		return new Signature(Offset.valueOf(jobject.get("offset").getAsString()),
-				jobject.get("stringSignature").getAsString(), jobject.get("offsetFromStart").getAsByte(),
+				jobject.get("stringSignature").getAsString(), jobject.get("offsetFromStart").getAsShort(),
 				jobject.get("signatureLength").getAsInt(), derefs,
 				ModuleLocation.valueOf(jobject.get("module").getAsString()));
 	}
