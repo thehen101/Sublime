@@ -8,10 +8,14 @@ import com.github.jonatino.process.Process;
 import com.github.jonatino.process.Processes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.thehen101.csgoexternal.cheat.base.CheatManager;
 import com.thehen101.csgoexternal.memory.Offset;
 import com.thehen101.csgoexternal.memory.Signature;
 import com.thehen101.csgoexternal.memory.SignatureScanner;
+import com.thehen101.csgoexternal.memory.event.base.EventManager;
+import com.thehen101.csgoexternal.util.Constants;
 import com.thehen101.csgoexternal.util.FileUtil;
+import com.thehen101.csgoexternal.util.KeyListener;
 import com.thehen101.csgoexternal.util.SignatureDeserialiser;
 
 public enum CSGOExternal {
@@ -19,17 +23,28 @@ public enum CSGOExternal {
 
 	private Process csgoProcess;
 	private Module clientModule, engineModule;
+	private CheatManager cheatManager;
+	private EventManager eventManager;
+	private KeyListener keyListener;
+	private Ticker ticker;
 	
 	/**
 	 * Initialises the cheat - this method is currently unfinished.
 	 */
 	public void initialise() {
-		csgoProcess = Processes.byName(Constants.PROCESS_NAME);
-		clientModule = csgoProcess.findModule(Constants.CLIENT_DLL_NAME);
-		engineModule = csgoProcess.findModule(Constants.ENGINE_DLL_NAME);
+		this.csgoProcess = Processes.byName(Constants.PROCESS_NAME);
+		this.clientModule = csgoProcess.findModule(Constants.CLIENT_DLL_NAME);
+		this.engineModule = csgoProcess.findModule(Constants.ENGINE_DLL_NAME);
+		this.eventManager = new EventManager();
+		this.cheatManager = new CheatManager();
+		this.keyListener = new KeyListener();
+		this.ticker = new Ticker(500);
 
 		this.readSignaturesFile();
 		this.performSignatureScan();
+		
+		this.keyListener.start();
+		this.ticker.startTicker();
 	}
 	
 	/**
@@ -81,16 +96,25 @@ public enum CSGOExternal {
 		clientSigScanner.scan();
 		engineSigScanner.scan();
 	}
+	
 
 	public Process getCsgoProcess() {
-		return csgoProcess;
+		return this.csgoProcess;
 	}
 
 	public Module getClientModule() {
-		return clientModule;
+		return this.clientModule;
 	}
 
 	public Module getEngineModule() {
-		return engineModule;
+		return this.engineModule;
+	}
+	
+	public CheatManager getCheatManager() {
+		return this.cheatManager;
+	}
+	
+	public EventManager getEventManager() {
+		return this.eventManager;
 	}
 }
