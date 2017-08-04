@@ -1,0 +1,62 @@
+[
+  {
+    "stringSignature": "A3 ?? ?? ?? ?? C7 05 ?? ?? ?? ?? ?? ?? ?? ?? E8 ?? ?? ?? ?? 59 C3 6A ??",
+    "dereferences": [
+      {
+        "offset": 16,
+        "location": "MODULE"
+      },
+      {
+        "offset": 0,
+        "location": "PROCESS"
+      }
+    ],
+    "signatureLength": 24,
+    "offset": "LOCALPLAYER",
+    "offsetFromStart": 1,
+	"module": "CLIENT"
+  },
+  {
+    "stringSignature": "89 0D ?? ?? ?? ?? 8B 0D ?? ?? ?? ?? 8B F2 8B C1 83 CE 08",
+    "dereferences": [
+      {
+        "offset": 0,
+        "location": "MODULE"
+      }
+    ],
+    "signatureLength": 19,
+    "offset": "FORCEJUMP",
+    "offsetFromStart": 2,
+	"module": "CLIENT"
+  },
+  {
+    "stringSignature": "A1 ?? ?? ?? ?? 33 D2 6A 00 6A 00 33 C9 89 B0",
+    "dereferences": [
+      {
+        "offset": 0,
+        "location": "MODULE"
+      },
+	  {
+        "offset": 0,
+        "location": "PROCESS"
+      }
+    ],
+    "signatureLength": 15,
+    "offset": "ENGINEPOINTER",
+    "offsetFromStart": 1,
+	"module": "ENGINE"
+  },
+  {
+    "stringSignature": "F3 0F 11 80 ?? ?? ?? ?? D9 46 04 D9 05",
+    "dereferences": [
+      {
+        "offset": 0,
+        "location": "MODULE"
+      }
+    ],
+    "signatureLength": 13,
+    "offset": "SETVIEWANGLES",
+    "offsetFromStart": 4,
+	"module": "ENGINE"
+  }
+]
