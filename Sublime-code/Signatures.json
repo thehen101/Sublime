@@ -14,7 +14,7 @@
     "signatureLength": 24,
     "offset": "LOCALPLAYER",
     "offsetFromStart": 1,
-	"module": "CLIENT"
+    "module": "CLIENT"
   },
   {
     "stringSignature": "89 0D ?? ?? ?? ?? 8B 0D ?? ?? ?? ?? 8B F2 8B C1 83 CE 08",
@@ -27,7 +27,7 @@
     "signatureLength": 19,
     "offset": "FORCEJUMP",
     "offsetFromStart": 2,
-	  "module": "CLIENT"
+    "module": "CLIENT"
   },
   {
     "stringSignature": "55 8B EC 51 53 8A 5D 08",
@@ -70,7 +70,7 @@
     "signatureLength": 15,
     "offset": "ENGINEPOINTER",
     "offsetFromStart": 1,
-	  "module": "ENGINE"
+    "module": "ENGINE"
   },
   {
     "stringSignature": "F3 0F 11 80 ?? ?? ?? ?? D9 46 04 D9 05",
@@ -83,6 +83,6 @@
     "signatureLength": 13,
     "offset": "SETVIEWANGLES",
     "offsetFromStart": 4,
-	  "module": "ENGINE"
+    "module": "ENGINE"
   }
 ]
