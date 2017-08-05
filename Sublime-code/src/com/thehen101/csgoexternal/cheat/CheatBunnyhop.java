@@ -2,12 +2,14 @@ package com.thehen101.csgoexternal.cheat;
 
 import com.thehen101.csgoexternal.CSGOExternal;
 import com.thehen101.csgoexternal.cheat.base.Cheat;
+import com.thehen101.csgoexternal.event.EventLocalPlayerUpdate;
+import com.thehen101.csgoexternal.event.EventTick;
+import com.thehen101.csgoexternal.event.base.Event;
 import com.thehen101.csgoexternal.memory.Offset;
-import com.thehen101.csgoexternal.memory.event.EventTick;
-import com.thehen101.csgoexternal.memory.event.base.Event;
-import com.thehen101.csgoexternal.util.Constants;
+import com.thehen101.csgoexternal.memory.gameobject.EntityPlayer;
 
 public class CheatBunnyhop extends Cheat {
+	private EntityPlayer localPlayer;
 
 	public CheatBunnyhop(String cheatName, int cheatKeybind) {
 		super(cheatName, cheatKeybind);
@@ -15,9 +17,17 @@ public class CheatBunnyhop extends Cheat {
 
 	@Override
 	public void onEvent(Event event) {
+		if (event instanceof EventLocalPlayerUpdate) {
+			EventLocalPlayerUpdate update = (EventLocalPlayerUpdate) event;
+			this.localPlayer = update.getLocalPlayer();
+		}
 		if (event instanceof EventTick) {
+			if (this.localPlayer == null)
+				return;
 			if (this.onGround()) {
 				this.jump();
+			} else {
+				this.setOnGround();
 			}
 		}
 	}
@@ -28,12 +38,11 @@ public class CheatBunnyhop extends Cheat {
 	}
 
 	private boolean onGround() {
-		return (CSGOExternal.INSTANCE.getCSGOProcess().readInt
-				(Offset.LOCALPLAYER.getAddress() + Constants.NETVAR_FLAGS) & 1 << 0) == 0 ? false : true;
+		return (this.localPlayer.getFlags().getValueInteger() & 1 << 0) == 0 ? false : true;
 	}
 	
 	private void jump() {
-		CSGOExternal.INSTANCE.getCSGOProcess().writeInt(Offset.FORCEJUMP.getAddress(), 6);
+		CSGOExternal.INSTANCE.getCSGOProcess().writeInt(Offset.FORCEJUMP.getAddress(), 5);
 	}
 	
 	private void setOnGround() {

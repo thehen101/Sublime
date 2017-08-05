@@ -2,12 +2,14 @@ package com.thehen101.csgoexternal.cheat;
 
 import com.thehen101.csgoexternal.CSGOExternal;
 import com.thehen101.csgoexternal.cheat.base.Cheat;
+import com.thehen101.csgoexternal.event.EventLocalPlayerUpdate;
+import com.thehen101.csgoexternal.event.EventTick;
+import com.thehen101.csgoexternal.event.base.Event;
 import com.thehen101.csgoexternal.memory.Offset;
-import com.thehen101.csgoexternal.memory.event.EventTick;
-import com.thehen101.csgoexternal.memory.event.base.Event;
-import com.thehen101.csgoexternal.util.Constants;
+import com.thehen101.csgoexternal.memory.gameobject.EntityPlayer;
 
 public class CheatAutostrafer extends Cheat {
+	private EntityPlayer localPlayer;
 	private float lastYaw = -500.0F, currentYaw;
 	private boolean reset;
 
@@ -17,7 +19,13 @@ public class CheatAutostrafer extends Cheat {
 
 	@Override
 	public void onEvent(Event event) {
+		if (event instanceof EventLocalPlayerUpdate) {
+			EventLocalPlayerUpdate update = (EventLocalPlayerUpdate) event;
+			this.localPlayer = update.getLocalPlayer();
+		}
 		if (event instanceof EventTick) {
+			if (this.localPlayer == null)
+				return;
 			if (!this.onGround()) {
 				if (this.lastYaw != -500.0F) {
 					this.reset = true;
@@ -65,7 +73,6 @@ public class CheatAutostrafer extends Cheat {
 	}
 	
 	private boolean onGround() {
-		return (CSGOExternal.INSTANCE.getCSGOProcess().readInt
-				(Offset.LOCALPLAYER.getAddress() + Constants.NETVAR_FLAGS) & 1 << 0) == 0 ? false : true;
+		return (this.localPlayer.getFlags().getValueInteger() & 1 << 0) == 0 ? false : true;
 	}
 }

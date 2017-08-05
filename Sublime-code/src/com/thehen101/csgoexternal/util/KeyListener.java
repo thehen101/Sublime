@@ -9,9 +9,10 @@ import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
 
 import com.thehen101.csgoexternal.CSGOExternal;
+import com.thehen101.csgoexternal.event.EventKeyPressed;
 
 public class KeyListener extends Thread implements NativeKeyListener {
-	
+
 	@Override
 	public void run() {
 		Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
@@ -25,7 +26,7 @@ public class KeyListener extends Thread implements NativeKeyListener {
 
 	@Override
 	public void nativeKeyPressed(NativeKeyEvent e) {
-		CSGOExternal.INSTANCE.getCheatManager().toggleCheatByKey(e.getKeyCode());
+		CSGOExternal.INSTANCE.getEventManager().callEvent(new EventKeyPressed(e.getKeyCode()));
 	}
 
 	@Override

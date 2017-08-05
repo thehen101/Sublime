@@ -9,14 +9,16 @@ import com.github.jonatino.process.Processes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thehen101.csgoexternal.cheat.base.CheatManager;
+import com.thehen101.csgoexternal.event.base.EventManager;
+import com.thehen101.csgoexternal.memory.Netvar;
 import com.thehen101.csgoexternal.memory.Offset;
 import com.thehen101.csgoexternal.memory.Signature;
 import com.thehen101.csgoexternal.memory.SignatureScanner;
-import com.thehen101.csgoexternal.memory.event.base.EventManager;
 import com.thehen101.csgoexternal.util.Constants;
 import com.thehen101.csgoexternal.util.FileUtil;
 import com.thehen101.csgoexternal.util.KeyListener;
-import com.thehen101.csgoexternal.util.SignatureDeserialiser;
+import com.thehen101.csgoexternal.util.serialisation.NetvarDeserialiser;
+import com.thehen101.csgoexternal.util.serialisation.SignatureDeserialiser;
 
 public enum CSGOExternal {
 	INSTANCE;
@@ -39,7 +41,8 @@ public enum CSGOExternal {
 		this.cheatManager = new CheatManager();
 		this.keyListener = new KeyListener();
 		this.ticker = new Ticker(500);
-
+		
+		this.readNetvarFile();
 		this.readSignaturesFile();
 		this.performSignatureScan();
 		
@@ -47,18 +50,26 @@ public enum CSGOExternal {
 		this.ticker.startTicker();
 	}
 	
+	private void readNetvarFile() {
+		Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(Netvar.class, new NetvarDeserialiser()).create();
+		Netvar[] netvars = gson.fromJson(FileUtil.fileToString(new File(Constants.NETVAR_FILE_NAME)), Netvar[].class);
+		
+		for (Netvar n : netvars) {
+			System.out.println(n.getName() + " -> " + Integer.toHexString(n.getOffset()));
+		}
+	}
+	
 	/**
 	 * This method reads the signature JSON file and sets assigns each of the offsets their
 	 * required signature.
 	 */
 	private void readSignaturesFile() {
-		Gson gsona = new GsonBuilder().setPrettyPrinting()
+		Gson gson = new GsonBuilder().setPrettyPrinting()
 				.registerTypeAdapter(Signature.class, new SignatureDeserialiser()).create();
-		Signature[] sigs = gsona.fromJson(FileUtil.fileToString(new File(Constants.SIGNATURE_FILE_NAME)), 
+		Signature[] sigs = gson.fromJson(FileUtil.fileToString(new File(Constants.SIGNATURE_FILE_NAME)), 
 				Signature[].class);
 
 		for (Signature s : sigs) {
-			s.getOffsetEnum();
 			s.getOffsetEnum().setSignature(s);
 			System.out.println(
 					s.getOffsetEnum().getName() + " -> " + s.getOffsetEnum().getSignature().getStringSignature());

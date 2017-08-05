@@ -2,11 +2,14 @@ package com.thehen101.csgoexternal.memory;
 
 public enum Offset {
 	LOCALPLAYER("LocalPlayer"),
+	ENTITYLIST("EntityList"),
 	FORCEJUMP("ForceJump"),
 	FORCELEFT("ForceLeft"),
 	FORCERIGHT("ForceRight"),
+	BONEMANAGER("BoneManager"),
 	ENGINEPOINTER("EnginePointer"),
-	SETVIEWANGLES("SetViewAngles");
+	SETVIEWANGLES("SetViewAngles"),
+	ENTITYLOOPDISTANCE("EntityLoopDistance");
 
 	private final String name;
 	private Signature signature;

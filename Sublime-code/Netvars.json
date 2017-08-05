@@ -1,0 +1,30 @@
+[
+  {
+    "name": "HEALTH",
+    "offset": 252
+  },
+  {
+    "name": "FLAGS",
+    "offset": 256
+  },
+  {
+    "name": "TEAM",
+    "offset": 240
+  },
+  {
+    "name": "ORIGIN",
+    "offset": 308
+  },
+  {
+    "name": "VIEWOFFSET",
+    "offset": 260
+  },
+  {
+    "name": "LIFESTATE",
+    "offset": 603
+  },
+  {
+    "name": "IMMUNE",
+    "offset": 14512
+  }
+]

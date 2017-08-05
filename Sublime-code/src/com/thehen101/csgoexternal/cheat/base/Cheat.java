@@ -1,7 +1,7 @@
 package com.thehen101.csgoexternal.cheat.base;
 
 import com.thehen101.csgoexternal.CSGOExternal;
-import com.thehen101.csgoexternal.memory.event.base.Listener;
+import com.thehen101.csgoexternal.event.base.Listener;
 
 public abstract class Cheat implements Listener {
 	private final String name;

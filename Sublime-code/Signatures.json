@@ -16,6 +16,19 @@
     "offsetFromStart": 1,
     "module": "CLIENT"
   },
+    {
+    "stringSignature": "BB ?? ?? ?? ?? 83 FF 01 0F 8C ?? ?? ?? ?? 3B F8",
+    "dereferences": [
+      {
+        "offset": 0,
+        "location": "MODULE"
+      }
+    ],
+    "signatureLength": 16,
+    "offset": "ENTITYLIST",
+    "offsetFromStart": 1,
+    "module": "CLIENT"
+  },
   {
     "stringSignature": "89 0D ?? ?? ?? ?? 8B 0D ?? ?? ?? ?? 8B F2 8B C1 83 CE 08",
     "dereferences": [
@@ -56,6 +69,19 @@
     "module": "CLIENT"
   },
   {
+    "stringSignature": "8B B6 ?? ?? ?? ?? 85 F6 74 05 83 3E 00 75 02 33 F6 F3 0F 10 44 24",
+    "dereferences": [
+      {
+        "offset": 0,
+        "location": "MODULE"
+      }
+    ],
+    "signatureLength": 22,
+    "offset": "BONEMANAGER",
+    "offsetFromStart": 2,
+    "module": "CLIENT"
+  },
+  {
     "stringSignature": "A1 ?? ?? ?? ?? 33 D2 6A 00 6A 00 33 C9 89 B0",
     "dereferences": [
       {
@@ -83,6 +109,19 @@
     "signatureLength": 13,
     "offset": "SETVIEWANGLES",
     "offsetFromStart": 4,
+    "module": "ENGINE"
+  },
+  {
+    "stringSignature": "A1 ?? ?? ?? ?? 8B 80 ?? ?? ?? ?? C3 CC CC CC CC 55 8B EC 8A 45 08",
+    "dereferences": [
+      {
+        "offset": 0,
+        "location": "MODULE"
+      }
+    ],
+    "signatureLength": 22,
+    "offset": "ENTITYLOOPDISTANCE",
+    "offsetFromStart": 7,
     "module": "ENGINE"
   }
 ]

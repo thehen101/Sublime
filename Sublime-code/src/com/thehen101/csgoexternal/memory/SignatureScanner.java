@@ -33,35 +33,38 @@ public class SignatureScanner {
 			int currentByte = moduleMemory.getByte(currentOffset);
 			for (int i = 0; i < firstBytes.length; i++) {
 				Offset offset = this.offsets[i];
-				Signature sig = offset.getSignature();
-				if (currentByte == firstBytes[i] || sig.bytesFoundCounter != 0) {
-					int cByte = sig.getSignature()[sig.bytesFoundCounter];
-					if (currentByte == cByte || cByte == 0) {
-						sig.bytesFoundCounter++;
-						if (sig.bytesFoundCounter == sig.getSignatureLength()) {
-							int address = currentOffset - (sig.bytesFoundCounter - 1);
-							System.out.print(offset.getName() + " signature found in memory! Location: 0x"
-									+ Integer.toHexString(address));
-							sig.bytesFoundCounter = 0;
-							offset.setAddress(address + sig.getOffset());
-							for (int d = 0; d < sig.getDereferences().length; d++) {
-								Dereference deref = sig.getDereferences()[d];
-								switch (deref.getLocation()) {
-								case MODULE:
-									offset.setAddress(this.module.readInt(offset.getAddress()) + deref.getOffset());
-									break;
-								case PROCESS:
-									offset.setAddress(this.process.readInt(offset.getAddress()) + deref.getOffset());
-									break;
+				if (offset != null) {
+					Signature sig = offset.getSignature();
+					if (currentByte == firstBytes[i] || sig.bytesFoundCounter != 0) {
+						int cByte = sig.getSignature()[sig.bytesFoundCounter];
+						if (currentByte == cByte || cByte == 0) {
+							sig.bytesFoundCounter++;
+							if (sig.bytesFoundCounter == sig.getSignatureLength()) {
+								int address = currentOffset - (sig.bytesFoundCounter - 1);
+								System.out.print(offset.getName() + " signature found in memory! Location: 0x"
+										+ Integer.toHexString(address));
+								sig.bytesFoundCounter = 0;
+								offset.setAddress(address + sig.getOffset());
+								for (int d = 0; d < sig.getDereferences().length; d++) {
+									Dereference deref = sig.getDereferences()[d];
+									switch (deref.getLocation()) {
+									case MODULE:
+										offset.setAddress(this.module.readInt(offset.getAddress()) + deref.getOffset());
+										break;
+									case PROCESS:
+										offset.setAddress(this.process.readInt(offset.getAddress()) + deref.getOffset());
+										break;
+									}
 								}
+								System.out.println(", final address: 0x" + Integer.toHexString(offset.getAddress()));
+								this.offsets[i] = null;
 							}
-							System.out.println(", final address: 0x" + Integer.toHexString(offset.getAddress()));
+						} else {
+							sig.bytesFoundCounter = 0;
 						}
 					} else {
 						sig.bytesFoundCounter = 0;
 					}
-				} else {
-					sig.bytesFoundCounter = 0;
 				}
 			}
 		}

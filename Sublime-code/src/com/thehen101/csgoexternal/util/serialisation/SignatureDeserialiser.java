@@ -1,4 +1,4 @@
-package com.thehen101.csgoexternal.util;
+package com.thehen101.csgoexternal.util.serialisation;
 
 import java.lang.reflect.Type;
 

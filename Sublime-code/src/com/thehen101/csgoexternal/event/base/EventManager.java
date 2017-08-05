@@ -1,4 +1,4 @@
-package com.thehen101.csgoexternal.memory.event.base;
+package com.thehen101.csgoexternal.event.base;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
