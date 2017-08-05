@@ -38,15 +38,16 @@ public class Ticker {
 	 */
 	private void tick() {
 		CSGOExternal.INSTANCE.getEventManager().callEvent(new EventTick());
-		
+
 		EntityPlayer localPlayer = new EntityPlayer();
 		final int lpa = Offset.LOCALPLAYER.getAddress();
-		MemoryBuffer localPlayerMemory = CSGOExternal.INSTANCE.getCSGOProcess().read(lpa,
-				localPlayer.bytesToRead());
-		ValueFloat[] pos = new ValueFloat[] { 
+		MemoryBuffer localPlayerMemory = CSGOExternal.INSTANCE.getCSGOProcess().read(lpa, localPlayer.bytesToRead());
+		ValueFloat[] pos = new ValueFloat[] {
 				new ValueFloat(lpa + Netvar.ORIGIN.getOffset(), localPlayerMemory.getFloat(Netvar.ORIGIN.getOffset())),
-				new ValueFloat(lpa + Netvar.ORIGIN.getOffset() + 0x8, localPlayerMemory.getFloat(Netvar.ORIGIN.getOffset()) + 0x8),
-				new ValueFloat(lpa + Netvar.ORIGIN.getOffset() + 0x4, localPlayerMemory.getFloat(Netvar.ORIGIN.getOffset()) + 0x4) };
+				new ValueFloat(lpa + Netvar.ORIGIN.getOffset() + 0x8,
+						localPlayerMemory.getFloat(Netvar.ORIGIN.getOffset()) + 0x8),
+				new ValueFloat(lpa + Netvar.ORIGIN.getOffset() + 0x4,
+						localPlayerMemory.getFloat(Netvar.ORIGIN.getOffset()) + 0x4) };
 		ValueInteger health = new ValueInteger(lpa + Netvar.HEALTH.getOffset(),
 				localPlayerMemory.getInt(Netvar.HEALTH.getOffset()));
 		ValueInteger lifeState = new ValueInteger(lpa + Netvar.LIFESTATE.getOffset(),
@@ -55,10 +56,13 @@ public class Ticker {
 				localPlayerMemory.getInt(Netvar.FLAGS.getOffset()));
 		ValueInteger team = new ValueInteger(lpa + Netvar.TEAM.getOffset(),
 				localPlayerMemory.getInt(Netvar.TEAM.getOffset()));
-		ValueFloat[] viewOffset = new ValueFloat[] { 
-				new ValueFloat(lpa + Netvar.VIEWOFFSET.getOffset(), localPlayerMemory.getFloat(Netvar.VIEWOFFSET.getOffset())),
-				new ValueFloat(lpa + Netvar.VIEWOFFSET.getOffset() + 0x8, localPlayerMemory.getFloat(Netvar.VIEWOFFSET.getOffset()) + 0x8),
-				new ValueFloat(lpa + Netvar.VIEWOFFSET.getOffset() + 0x4, localPlayerMemory.getFloat(Netvar.VIEWOFFSET.getOffset()) + 0x4) };
+		ValueFloat[] viewOffset = new ValueFloat[] {
+				new ValueFloat(lpa + Netvar.VIEWOFFSET.getOffset(),
+						localPlayerMemory.getFloat(Netvar.VIEWOFFSET.getOffset())),
+				new ValueFloat(lpa + Netvar.VIEWOFFSET.getOffset() + 0x8,
+						localPlayerMemory.getFloat(Netvar.VIEWOFFSET.getOffset()) + 0x8),
+				new ValueFloat(lpa + Netvar.VIEWOFFSET.getOffset() + 0x4,
+						localPlayerMemory.getFloat(Netvar.VIEWOFFSET.getOffset()) + 0x4) };
 		ValueBoolean immune = new ValueBoolean(lpa + Netvar.IMMUNE.getOffset(),
 				localPlayerMemory.getByte(Netvar.IMMUNE.getOffset()) == 0 ? false : true);
 		localPlayer.setPos(pos);
