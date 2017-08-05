@@ -1,5 +1,9 @@
 # Sublime
-A free, external and undetected Java CS:GO cheat. I am to eventually support all three platforms that CS:GO supports - those being Windows, Mac and Linux. Currently however the cheat only supports Windows.
+A free, external and undetected Java CS:GO cheat. I am to eventually support all three platforms that CS:GO supports - those being Windows, Mac and Linux. However, only Windows is supported at the moment.
+
+## Cheats included:
+##### Autostrafer
+##### Bunnyhop
 
 ## How do I edit the code?
 Simply hit the big green 'Clone or download' button and download the source. Extract the 'Sublime-master' folder from the archive somewhere on your computer, and then open it in a file manager. Next, create a folder called 'lib' in the Sublime-code folder and fill it up with the libraries shown below. Open eclipse and set the workspace as the 'Sublime-master' folder. When it has loaded in, create a new Java Project. Call it 'Sublime-code', and you should see a notification telling you eclipse will use the code already there. Hit OK, and add the libraries to the project if it prompts you to do so. You are now ready to compile and edit the code.
