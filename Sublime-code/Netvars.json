@@ -23,6 +23,10 @@
     "name": "LIFESTATE",
     "offset": 603
   },
+    {
+    "name": "BONEMANAGER",
+    "offset": 9880
+  },
   {
     "name": "IMMUNE",
     "offset": 14512

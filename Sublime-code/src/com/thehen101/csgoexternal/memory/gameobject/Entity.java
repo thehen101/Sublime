@@ -23,17 +23,18 @@ public class Entity {
 		this.baseAddress = baseAddress;
 	}
 	
-	public int[] getNetvarOffsets() {
-		return new int[] { Netvar.ORIGIN.getOffset(), Netvar.HEALTH.getOffset(), Netvar.LIFESTATE.getOffset(),
-				Netvar.FLAGS.getOffset(), Netvar.TEAM.getOffset() };
+	public Netvar[] getNetvarOffsets() {
+		return new Netvar[] { Netvar.ORIGIN, Netvar.HEALTH, Netvar.LIFESTATE, Netvar.FLAGS,
+				Netvar.TEAM };
 	}
 	
 	public short bytesToRead() {
-		int[] netvars = this.getNetvarOffsets();
+		Netvar[] netvars = this.getNetvarOffsets();
 		short maxOffset = 0;
-		for (int i : netvars) {
-			if (i > maxOffset)
-				maxOffset = (short) i;
+		for (Netvar n : netvars) {
+			short o = n.getOffset();
+			if (o > maxOffset)
+				maxOffset = (short) o;
 		}
 		return (short) (maxOffset + 0x4); //TODO: don't hardcode 4 extra bytes
 	}

@@ -69,19 +69,6 @@
     "module": "CLIENT"
   },
   {
-    "stringSignature": "8B B6 ?? ?? ?? ?? 85 F6 74 05 83 3E 00 75 02 33 F6 F3 0F 10 44 24",
-    "dereferences": [
-      {
-        "offset": 0,
-        "location": "MODULE"
-      }
-    ],
-    "signatureLength": 22,
-    "offset": "BONEMANAGER",
-    "offsetFromStart": 2,
-    "module": "CLIENT"
-  },
-  {
     "stringSignature": "A1 ?? ?? ?? ?? 33 D2 6A 00 6A 00 33 C9 89 B0",
     "dereferences": [
       {

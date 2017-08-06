@@ -7,6 +7,7 @@ public enum Netvar {
 	ORIGIN("Origin"),
 	VIEWOFFSET("ViewOffset"),
 	LIFESTATE("LifeState"),
+	BONEMANAGER("BoneManager"),
 	IMMUNE("Immune");
 
 	private final String name;

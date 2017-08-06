@@ -25,10 +25,9 @@ public class EntityPlayer extends Entity {
 	}
 	
 	@Override
-	public int[] getNetvarOffsets() {
-		return new int[] { Netvar.ORIGIN.getOffset(), Netvar.HEALTH.getOffset(), Netvar.LIFESTATE.getOffset(),
-				Netvar.FLAGS.getOffset(), Netvar.TEAM.getOffset(), Netvar.VIEWOFFSET.getOffset(),
-				Offset.BONEMANAGER.getAddress(), Netvar.IMMUNE.getOffset() };
+	public Netvar[] getNetvarOffsets() {
+		return new Netvar[] { Netvar.ORIGIN, Netvar.HEALTH, Netvar.LIFESTATE, Netvar.FLAGS, Netvar.TEAM,
+				Netvar.VIEWOFFSET, Netvar.BONEMANAGER, Netvar.IMMUNE };
 	}
 
 	public ValueFloat[] getViewOffset() {
