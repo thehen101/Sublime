@@ -94,7 +94,7 @@ public class CheatAimbot extends Cheat {
 		origin[2] = this.localPlayer.getPos()[2].getValueFloat() 
 				+ this.localPlayer.getViewOffset()[2].getValueFloat();
 		return origin;
-}
+	}
 	
 	private float getYaw(float[] start, float[] end) {
 		double yaw = 0F;
