@@ -6,6 +6,7 @@ public enum Offset {
 	FORCEJUMP("ForceJump"),
 	FORCELEFT("ForceLeft"),
 	FORCERIGHT("ForceRight"),
+	GLOWMANAGER("GlowManager"),
 	ENGINEPOINTER("EnginePointer"),
 	SETVIEWANGLES("SetViewAngles"),
 	ENTITYLOOPDISTANCE("EntityLoopDistance");

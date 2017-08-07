@@ -4,20 +4,22 @@ public enum Netvar {
 	HEALTH("Health"),
 	FLAGS("Flags"),
 	TEAM("Team"),
+	DORMANT("Dormant"),
 	ORIGIN("Origin"),
 	VIEWOFFSET("ViewOffset"),
 	LIFESTATE("LifeState"),
 	BONEMANAGER("BoneManager"),
-	IMMUNE("Immune");
+	IMMUNE("Immune"),
+	GLOWINDEX("GlowIndex");
 
 	private final String name;
-	private short offset;
+	private int offset;
 	
 	Netvar(String name) {
-		this(name, (short) 0);
+		this(name, 0);
 	}
 	
-	Netvar(String name, short offset) {
+	Netvar(String name, int offset) {
 		this.name = name;
 		this.offset = offset;
 	}
@@ -26,11 +28,11 @@ public enum Netvar {
 		return this.name;
 	}
 	
-	public short getOffset() {
+	public int getOffset() {
 		return this.offset;
 	}
 	
-	public void setOffset(short newOffset) {
+	public void setOffset(int newOffset) {
 		this.offset = newOffset;
 	}
 }

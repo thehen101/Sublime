@@ -15,7 +15,7 @@ public class NetvarDeserialiser implements JsonDeserializer<Netvar> {
 			throws JsonParseException {
 		JsonObject jobject = json.getAsJsonObject();
 		Netvar netvar = Netvar.valueOf(jobject.get("name").getAsString());
-		netvar.setOffset(jobject.get("offset").getAsShort());
+		netvar.setOffset(jobject.get("offset").getAsInt());
 		return netvar;
 	}
 }

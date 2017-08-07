@@ -35,7 +35,8 @@ public class CheatAimbot extends Cheat {
 					&& otherPlayer.getLifeState().getValueInteger() == 0 
 					&& otherPlayer.getImmune().getValueBoolean() == false
 					&& otherPlayer.getTeam().getValueInteger() != this.localPlayer.getTeam().getValueInteger()
-					&& otherPlayer.getFlags().getValueInteger() != 0) {
+					&& otherPlayer.getFlags().getValueInteger() != 0
+					&& otherPlayer.getDormant().getValueInteger() == 0) {
 				this.target = otherPlayer;
 			}
 			

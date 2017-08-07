@@ -3,10 +3,12 @@ package com.thehen101.csgoexternal;
 import com.github.jonatino.misc.MemoryBuffer;
 import com.thehen101.csgoexternal.event.EventEntityPlayerLooped;
 import com.thehen101.csgoexternal.event.EventLocalPlayerUpdate;
+import com.thehen101.csgoexternal.event.EventPlayerGlowLooped;
 import com.thehen101.csgoexternal.event.EventTick;
 import com.thehen101.csgoexternal.memory.Netvar;
 import com.thehen101.csgoexternal.memory.Offset;
 import com.thehen101.csgoexternal.memory.gameobject.EntityPlayer;
+import com.thehen101.csgoexternal.memory.gameobject.GlowEntity;
 import com.thehen101.csgoexternal.memory.value.ValueBoolean;
 import com.thehen101.csgoexternal.memory.value.ValueFloat;
 import com.thehen101.csgoexternal.memory.value.ValueInteger;
@@ -50,8 +52,13 @@ public class Ticker {
 			final int opa = CSGOExternal.INSTANCE.getCSGOProcess().readInt(
 					Offset.ENTITYLIST.getAddress() + (0x10 * i));
 			if (opa != 0)
-				if (this.setupPlayer(otherPlayer, opa))
+				if (this.setupPlayer(otherPlayer, opa)) {
 					CSGOExternal.INSTANCE.getEventManager().callEvent(new EventEntityPlayerLooped(otherPlayer));
+					
+					int glowAddress = Offset.GLOWMANAGER.getAddress() + (0x38 * otherPlayer.getGlowIndex().getValueInteger());
+					CSGOExternal.INSTANCE.getEventManager().callEvent(new EventPlayerGlowLooped(otherPlayer, 
+							new GlowEntity(glowAddress, CSGOExternal.INSTANCE.getCSGOProcess().read(glowAddress, 0x38))));
+				}
 		}
 
 		CSGOExternal.INSTANCE.getEventManager().callEvent(new EventTick());
@@ -83,6 +90,8 @@ public class Ticker {
 					playerMemory.getInt(Netvar.FLAGS.getOffset()));
 			ValueInteger team = new ValueInteger(add + Netvar.TEAM.getOffset(),
 					playerMemory.getInt(Netvar.TEAM.getOffset()));
+			ValueInteger dormant = new ValueInteger(add + Netvar.DORMANT.getOffset(),
+					playerMemory.getInt(Netvar.DORMANT.getOffset()));
 			ValueFloat[] viewOffset = new ValueFloat[] {
 					new ValueFloat(add + Netvar.VIEWOFFSET.getOffset(),
 							playerMemory.getFloat(Netvar.VIEWOFFSET.getOffset())),
@@ -92,17 +101,20 @@ public class Ticker {
 							playerMemory.getFloat(Netvar.VIEWOFFSET.getOffset() + 0x4)) };
 			ValueBoolean immune = new ValueBoolean(add + Netvar.IMMUNE.getOffset(),
 					playerMemory.getByte(Netvar.IMMUNE.getOffset()) == 0 ? false : true);
-			int bma = CSGOExternal.INSTANCE.getCSGOProcess().readInt(add
-					+ Netvar.BONEMANAGER.getOffset());
+			int bma = playerMemory.getInt(Netvar.BONEMANAGER.getOffset());
+			ValueInteger glowIndex = new ValueInteger(add + Netvar.GLOWINDEX.getOffset(),
+					playerMemory.getInt(Netvar.GLOWINDEX.getOffset()));
 			ep.setPos(pos);
 			ep.setHealth(health);
 			ep.setLifeState(lifeState);
 			ep.setFlags(flags);
 			ep.setTeam(team);
+			ep.setDormant(dormant);
 			ep.setViewOffset(viewOffset);
 			ep.setImmune(immune);
 			ep.setBaseAddress(add);
 			ep.setBoneManagerAddress(bma);
+			ep.setGlowIndexAddress(glowIndex);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,5 +1,7 @@
 package com.thehen101.csgoexternal.util;
 
+import java.nio.ByteBuffer;
+
 public final class TypeUtil {
 	
 	/**
@@ -28,6 +30,10 @@ public final class TypeUtil {
 			counter++;
 		}
 		return array;
+	}
+	
+	public static final byte[] floatToByteArray(float value) {
+		return ByteBuffer.allocate(4).putFloat(value).array();
 	}
 
 	public static final String sanitiseSignatureString(String sigString) {

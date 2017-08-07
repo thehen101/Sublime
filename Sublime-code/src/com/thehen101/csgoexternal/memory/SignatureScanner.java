@@ -52,7 +52,8 @@ public class SignatureScanner {
 										offset.setAddress(this.module.readInt(offset.getAddress()) + deref.getOffset());
 										break;
 									case PROCESS:
-										offset.setAddress(this.process.readInt(offset.getAddress()) + deref.getOffset());
+										offset.setAddress(
+												this.process.readInt(offset.getAddress()) + deref.getOffset());
 										break;
 									}
 								}

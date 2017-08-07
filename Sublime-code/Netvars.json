@@ -12,6 +12,10 @@
     "offset": 240
   },
   {
+    "name": "DORMANT",
+    "offset": 233
+  },
+  {
     "name": "ORIGIN",
     "offset": 308
   },
@@ -30,5 +34,9 @@
   {
     "name": "IMMUNE",
     "offset": 14512
+  },
+  {
+    "name": "GLOWINDEX",
+    "offset": 41760
   }
 ]

@@ -69,6 +69,23 @@
     "module": "CLIENT"
   },
   {
+    "stringSignature": "A1 ?? ?? ?? ?? A8 01 75 4B",
+    "dereferences": [
+      {
+        "offset": 4,
+        "location": "MODULE"
+      },
+      {
+        "offset": 0,
+        "location": "PROCESS"
+      }
+    ],
+    "signatureLength": 9,
+    "offset": "GLOWMANAGER",
+    "offsetFromStart": 1,
+    "module": "CLIENT"
+  },
+  {
     "stringSignature": "A1 ?? ?? ?? ?? 33 D2 6A 00 6A 00 33 C9 89 B0",
     "dereferences": [
       {
