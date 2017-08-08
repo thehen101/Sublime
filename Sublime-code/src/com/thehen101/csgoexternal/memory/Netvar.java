@@ -9,6 +9,7 @@ public enum Netvar {
 	VIEWOFFSET("ViewOffset"),
 	LIFESTATE("LifeState"),
 	BONEMANAGER("BoneManager"),
+	VIEWPUNCH("ViewPunch"),
 	IMMUNE("Immune"),
 	GLOWINDEX("GlowIndex");
 

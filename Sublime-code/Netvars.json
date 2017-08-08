@@ -27,9 +27,13 @@
     "name": "LIFESTATE",
     "offset": 603
   },
-    {
+  {
     "name": "BONEMANAGER",
     "offset": 9880
+  },
+  {
+    "name": "VIEWPUNCH",
+    "offset": 12316
   },
   {
     "name": "IMMUNE",

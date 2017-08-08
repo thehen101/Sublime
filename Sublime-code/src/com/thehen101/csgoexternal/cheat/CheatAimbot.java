@@ -9,15 +9,16 @@ import com.thehen101.csgoexternal.event.EventMouseButtonPressed;
 import com.thehen101.csgoexternal.event.EventMouseButtonReleased;
 import com.thehen101.csgoexternal.event.EventTick;
 import com.thehen101.csgoexternal.event.base.Event;
+import com.thehen101.csgoexternal.memory.Netvar;
 import com.thehen101.csgoexternal.memory.Offset;
 import com.thehen101.csgoexternal.memory.gameobject.EntityPlayer;
 import com.thehen101.csgoexternal.memory.value.ValueFloat;
 
 public class CheatAimbot extends Cheat {
 	private EntityPlayer localPlayer, target;
-	private final float fov = 3F, speed = 100.0F;
+	private final float fov = 30F, speed = 50.0F;
 	private final int mouseHeldButton = 5;
-	private boolean canAim;
+	public boolean canAim;
 
 	public CheatAimbot(String cheatName, int cheatKeybind) {
 		super(cheatName, cheatKeybind);
@@ -70,8 +71,13 @@ public class CheatAimbot extends Cheat {
 			float[] aimPos = this.getPlayerAimPosition();
 			float[] target = this.getBonePosition(this.target.getBoneManagerAddress(), 8);
 			float[] angles = new float[] { this.getPitch(aimPos, target), this.getYaw(aimPos, target) };
-			this.fixAngles(angles);
 			ValueFloat[] aimAngles = this.getPlayerAimAngles();
+			if (CSGOExternal.INSTANCE.getCheatManager().getCheat(CheatRecoilControl.class).isEnabled()) {
+				ValueFloat[] vp = this.getPlayerViewPunch(this.localPlayer.getBaseAddress());
+				angles[0] -= vp[0].getValueFloat() * 2.0F;
+				angles[1] -= vp[1].getValueFloat() * 2.0F;
+			}
+			this.fixAngles(angles);
 			float[] smoothedAngles = new float[] { aimAngles[0].getValueFloat(), aimAngles[1].getValueFloat() };
 			float[] angDiff = this.getAngDiff(smoothedAngles, angles);
 			if (!this.canAim(angDiff))
@@ -89,6 +95,13 @@ public class CheatAimbot extends Cheat {
 	public void onDisable() {
 		this.target = null;
 		this.localPlayer = null;
+		this.canAim = false;
+	}
+	
+	public ValueFloat[] getPlayerViewPunch(final int playerAddress) {
+		final int punchAddress = playerAddress + Netvar.VIEWPUNCH.getOffset();
+		return new ValueFloat[] { new ValueFloat(punchAddress), 
+				new ValueFloat(punchAddress + 0x4) };
 	}
 	
 	private float[] getAngDiff(float[] myAngles, float[] snapAngles) {
