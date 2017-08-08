@@ -58,11 +58,12 @@ public class Ticker {
 					
 					int glowManagerAddress = CSGOExternal.INSTANCE.getCSGOProcess().readInt(Offset.GLOWMANAGER.getAddress());
 					int glowAddress = glowManagerAddress + (0x38 * otherPlayer.getGlowIndex().getValueInteger());
-					CSGOExternal.INSTANCE.getEventManager().callEvent(new EventPlayerGlowLooped(otherPlayer, 
-							new GlowEntity(glowAddress, CSGOExternal.INSTANCE.getCSGOProcess().read(glowAddress, 0x38))));
+					GlowEntity glowEntity = new GlowEntity(glowAddress, 
+							CSGOExternal.INSTANCE.getCSGOProcess().read(glowAddress, 0x38));
+					if (glowAddress != 0)
+						CSGOExternal.INSTANCE.getEventManager().callEvent(new EventPlayerGlowLooped(otherPlayer, glowEntity));
 				}
 		}
-
 		CSGOExternal.INSTANCE.getEventManager().callEvent(new EventTick());
 	}
 
