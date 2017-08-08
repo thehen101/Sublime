@@ -13,7 +13,7 @@ import com.thehen101.csgoexternal.memory.value.ValueFloat;
 
 public class CheatAimbot extends Cheat {
 	private EntityPlayer localPlayer, target;
-	private final float fov = 7.5F;
+	private final float fov = 3F, speed = 100.0F;
 
 	public CheatAimbot(String cheatName, int cheatKeybind) {
 		super(cheatName, cheatKeybind);
@@ -62,8 +62,8 @@ public class CheatAimbot extends Cheat {
 			float[] angDiff = this.getAngDiff(smoothedAngles, angles);
 			if (!this.canAim(angDiff))
 				return;
-			smoothedAngles[0] = smoothedAngles[0] + (angDiff[0] / 50.0F);
-			smoothedAngles[1] = smoothedAngles[1] + (angDiff[1] / 50.0F);
+			smoothedAngles[0] = smoothedAngles[0] + (angDiff[0] / this.speed);
+			smoothedAngles[1] = smoothedAngles[1] + (angDiff[1] / this.speed);
 			this.fixAngles(smoothedAngles);
 			aimAngles[0].setValueFloat(smoothedAngles[0]);
 			aimAngles[1].setValueFloat(smoothedAngles[1]);

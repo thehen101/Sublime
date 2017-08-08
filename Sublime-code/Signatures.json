@@ -5,10 +5,6 @@
       {
         "offset": 16,
         "location": "MODULE"
-      },
-      {
-        "offset": 0,
-        "location": "PROCESS"
       }
     ],
     "signatureLength": 24,
@@ -74,10 +70,6 @@
       {
         "offset": 4,
         "location": "MODULE"
-      },
-      {
-        "offset": 0,
-        "location": "PROCESS"
       }
     ],
     "signatureLength": 9,

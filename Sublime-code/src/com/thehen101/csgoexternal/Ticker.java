@@ -41,7 +41,8 @@ public class Ticker {
 	 */
 	private void tick() {
 		EntityPlayer localPlayer = new EntityPlayer();
-		this.setupPlayer(localPlayer, Offset.LOCALPLAYER.getAddress());
+		int playerAddress = CSGOExternal.INSTANCE.getCSGOProcess().readInt(Offset.LOCALPLAYER.getAddress());
+		this.setupPlayer(localPlayer, playerAddress);
 		CSGOExternal.INSTANCE.getEventManager().callEvent(new EventLocalPlayerUpdate(localPlayer));
 
 		final int maxPlayers = CSGOExternal.INSTANCE.getCSGOProcess()
@@ -55,7 +56,8 @@ public class Ticker {
 				if (this.setupPlayer(otherPlayer, opa)) {
 					CSGOExternal.INSTANCE.getEventManager().callEvent(new EventEntityPlayerLooped(otherPlayer));
 					
-					int glowAddress = Offset.GLOWMANAGER.getAddress() + (0x38 * otherPlayer.getGlowIndex().getValueInteger());
+					int glowManagerAddress = CSGOExternal.INSTANCE.getCSGOProcess().readInt(Offset.GLOWMANAGER.getAddress());
+					int glowAddress = glowManagerAddress + (0x38 * otherPlayer.getGlowIndex().getValueInteger());
 					CSGOExternal.INSTANCE.getEventManager().callEvent(new EventPlayerGlowLooped(otherPlayer, 
 							new GlowEntity(glowAddress, CSGOExternal.INSTANCE.getCSGOProcess().read(glowAddress, 0x38))));
 				}
