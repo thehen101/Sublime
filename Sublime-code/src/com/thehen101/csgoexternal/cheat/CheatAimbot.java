@@ -13,6 +13,7 @@ import com.thehen101.csgoexternal.memory.value.ValueFloat;
 
 public class CheatAimbot extends Cheat {
 	private EntityPlayer localPlayer, target;
+	private final float fov = 7.5F;
 
 	public CheatAimbot(String cheatName, int cheatKeybind) {
 		super(cheatName, cheatKeybind);
@@ -29,15 +30,23 @@ public class CheatAimbot extends Cheat {
 				return;
 			EventEntityPlayerLooped otherPlayerLoopedEvent = (EventEntityPlayerLooped) event;
 			EntityPlayer otherPlayer = otherPlayerLoopedEvent.getPlayer();
-			if (otherPlayer.getBaseAddress() == 0 || this.target != null)
+			if (otherPlayer.getBaseAddress() == 0)
 				return;
 			if (otherPlayer.getHealth().getValueInteger() >= 1 
 					&& otherPlayer.getLifeState().getValueInteger() == 0 
 					&& otherPlayer.getImmune().getValueBoolean() == false
 					&& otherPlayer.getTeam().getValueInteger() != this.localPlayer.getTeam().getValueInteger()
 					&& otherPlayer.getFlags().getValueInteger() != 0
-					&& otherPlayer.getDormant().getValueInteger() == 0) {
-				this.target = otherPlayer;
+					&& otherPlayer.getDormant().getValueInteger() == 0
+					&& otherPlayer.getBoneManagerAddress() != 0) {
+				float[] aimPos = this.getPlayerAimPosition();
+				float[] target = this.getBonePosition(otherPlayer.getBoneManagerAddress(), 8);
+				float[] angles = new float[] { this.getPitch(aimPos, target), this.getYaw(aimPos, target) };
+				ValueFloat[] aimAngles = this.getPlayerAimAngles();
+				float[] myAngles = new float[] { aimAngles[0].getValueFloat(), aimAngles[1].getValueFloat() };
+				float[] angDiff = this.getAngDiff(myAngles, angles);
+				if (this.canAim(angDiff))
+					this.target = otherPlayer;
 			}
 			
 		}
@@ -46,19 +55,37 @@ public class CheatAimbot extends Cheat {
 				return;
 			float[] aimPos = this.getPlayerAimPosition();
 			float[] target = this.getBonePosition(this.target.getBoneManagerAddress(), 8);
-			float yaw = this.getYaw(aimPos, target);
-			float pitch = this.getPitch(aimPos, target);
-			float[] angles = new float[] { pitch, yaw };
+			float[] angles = new float[] { this.getPitch(aimPos, target), this.getYaw(aimPos, target) };
 			this.fixAngles(angles);
 			ValueFloat[] aimAngles = this.getPlayerAimAngles();
 			float[] smoothedAngles = new float[] { aimAngles[0].getValueFloat(), aimAngles[1].getValueFloat() };
-			smoothedAngles[0] = smoothedAngles[0] + ((angles[0] - smoothedAngles[0]) / 50.0F);
-			smoothedAngles[1] = smoothedAngles[1] + (this.clampYaw(angles[1] - smoothedAngles[1]) / 50.0F);
+			float[] angDiff = this.getAngDiff(smoothedAngles, angles);
+			if (!this.canAim(angDiff))
+				return;
+			smoothedAngles[0] = smoothedAngles[0] + (angDiff[0] / 50.0F);
+			smoothedAngles[1] = smoothedAngles[1] + (angDiff[1] / 50.0F);
 			this.fixAngles(smoothedAngles);
 			aimAngles[0].setValueFloat(smoothedAngles[0]);
 			aimAngles[1].setValueFloat(smoothedAngles[1]);
 			this.target = null;
 		}
+	}
+	
+	@Override
+	public void onDisable() {
+		this.target = null;
+		this.localPlayer = null;
+	}
+	
+	private float[] getAngDiff(float[] myAngles, float[] snapAngles) {
+		return new float[] { (snapAngles[0] - myAngles[0]), this.clampYaw(snapAngles[1] - myAngles[1]) };
+	}
+	
+	private boolean canAim(float[] angles) {
+		if (angles[0] < -this.fov || angles[0] > this.fov
+				|| angles[1] < -this.fov || angles[1] > this.fov)
+			return false;
+		return true;
 	}
 	
 	private float clampYaw(float yaw) {
