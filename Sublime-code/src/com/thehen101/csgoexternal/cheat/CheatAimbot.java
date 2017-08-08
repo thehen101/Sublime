@@ -5,6 +5,8 @@ import com.thehen101.csgoexternal.CSGOExternal;
 import com.thehen101.csgoexternal.cheat.base.Cheat;
 import com.thehen101.csgoexternal.event.EventEntityPlayerLooped;
 import com.thehen101.csgoexternal.event.EventLocalPlayerUpdate;
+import com.thehen101.csgoexternal.event.EventMouseButtonPressed;
+import com.thehen101.csgoexternal.event.EventMouseButtonReleased;
 import com.thehen101.csgoexternal.event.EventTick;
 import com.thehen101.csgoexternal.event.base.Event;
 import com.thehen101.csgoexternal.memory.Offset;
@@ -14,6 +16,8 @@ import com.thehen101.csgoexternal.memory.value.ValueFloat;
 public class CheatAimbot extends Cheat {
 	private EntityPlayer localPlayer, target;
 	private final float fov = 3F, speed = 100.0F;
+	private final int mouseHeldButton = 5;
+	private boolean canAim;
 
 	public CheatAimbot(String cheatName, int cheatKeybind) {
 		super(cheatName, cheatKeybind);
@@ -25,8 +29,18 @@ public class CheatAimbot extends Cheat {
 			EventLocalPlayerUpdate update = (EventLocalPlayerUpdate) event;
 			this.localPlayer = update.getLocalPlayer();
 		}
+		if (event instanceof EventMouseButtonPressed) {
+			EventMouseButtonPressed buttonPressed = (EventMouseButtonPressed) event;
+			if (buttonPressed.getButtonPressed() == this.mouseHeldButton)
+				this.canAim = true;
+		}
+		if (event instanceof EventMouseButtonReleased) {
+			EventMouseButtonReleased buttonReleased = (EventMouseButtonReleased) event;
+			if (buttonReleased.getButtonReleased() == this.mouseHeldButton)
+				this.canAim = false;
+		}
 		if (event instanceof EventEntityPlayerLooped) {
-			if (this.localPlayer == null)
+			if (this.localPlayer == null || !this.canAim)
 				return;
 			EventEntityPlayerLooped otherPlayerLoopedEvent = (EventEntityPlayerLooped) event;
 			EntityPlayer otherPlayer = otherPlayerLoopedEvent.getPlayer();
@@ -51,7 +65,7 @@ public class CheatAimbot extends Cheat {
 			
 		}
 		if (event instanceof EventTick) {
-			if (this.localPlayer == null || this.target == null)
+			if (this.localPlayer == null || this.target == null || !this.canAim)
 				return;
 			float[] aimPos = this.getPlayerAimPosition();
 			float[] target = this.getBonePosition(this.target.getBoneManagerAddress(), 8);

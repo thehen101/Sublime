@@ -7,12 +7,16 @@ import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
+import org.jnativehook.mouse.NativeMouseEvent;
+import org.jnativehook.mouse.NativeMouseInputListener;
 
 import com.thehen101.csgoexternal.CSGOExternal;
 import com.thehen101.csgoexternal.event.EventKeyPressed;
 import com.thehen101.csgoexternal.event.EventKeyReleased;
+import com.thehen101.csgoexternal.event.EventMouseButtonPressed;
+import com.thehen101.csgoexternal.event.EventMouseButtonReleased;
 
-public class KeyListener extends Thread implements NativeKeyListener {
+public class PeripheralListener extends Thread implements NativeKeyListener, NativeMouseInputListener {
 
 	@Override
 	public void run() {
@@ -23,6 +27,8 @@ public class KeyListener extends Thread implements NativeKeyListener {
 		} catch (NativeHookException localNativeHookException) {
 		}
 		GlobalScreen.addNativeKeyListener(this);
+		GlobalScreen.addNativeMouseListener(this);
+		//GlobalScreen.addNativeMouseMotionListener(this);
 	}
 
 	@Override
@@ -39,4 +45,25 @@ public class KeyListener extends Thread implements NativeKeyListener {
 	public void nativeKeyTyped(NativeKeyEvent e) {
 	}
 
+	@Override
+	public void nativeMouseClicked(NativeMouseEvent nme) {
+	}
+
+	@Override
+	public void nativeMousePressed(NativeMouseEvent nme) {
+		CSGOExternal.INSTANCE.getEventManager().callEvent(new EventMouseButtonPressed(nme.getButton()));
+	}
+
+	@Override
+	public void nativeMouseReleased(NativeMouseEvent nme) {
+		CSGOExternal.INSTANCE.getEventManager().callEvent(new EventMouseButtonReleased(nme.getButton()));
+	}
+
+	@Override
+	public void nativeMouseDragged(NativeMouseEvent nme) {
+	}
+
+	@Override
+	public void nativeMouseMoved(NativeMouseEvent nme) {
+	}
 }

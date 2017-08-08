@@ -16,7 +16,7 @@ import com.thehen101.csgoexternal.memory.Signature;
 import com.thehen101.csgoexternal.memory.SignatureScanner;
 import com.thehen101.csgoexternal.util.Constants;
 import com.thehen101.csgoexternal.util.FileUtil;
-import com.thehen101.csgoexternal.util.KeyListener;
+import com.thehen101.csgoexternal.util.PeripheralListener;
 import com.thehen101.csgoexternal.util.serialisation.NetvarDeserialiser;
 import com.thehen101.csgoexternal.util.serialisation.SignatureDeserialiser;
 
@@ -27,7 +27,7 @@ public enum CSGOExternal {
 	private Module clientModule, engineModule;
 	private CheatManager cheatManager;
 	private EventManager eventManager;
-	private KeyListener keyListener;
+	private PeripheralListener peripheralListener;
 	private Ticker ticker;
 	
 	/**
@@ -39,15 +39,15 @@ public enum CSGOExternal {
 		this.engineModule = csgoProcess.findModule(Constants.ENGINE_DLL_NAME);
 		this.eventManager = new EventManager();
 		this.cheatManager = new CheatManager();
-		this.keyListener = new KeyListener();
+		this.peripheralListener = new PeripheralListener();
 		this.ticker = new Ticker(500);
 		
 		this.readNetvarFile();
 		this.readSignaturesFile();
 		this.performSignatureScan();
 		
-		this.keyListener.start();
-		this.ticker.startTicker();
+		this.peripheralListener.start();
+		this.ticker.start();
 	}
 	
 	private void readNetvarFile() {

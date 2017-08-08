@@ -13,14 +13,15 @@ import com.thehen101.csgoexternal.memory.value.ValueBoolean;
 import com.thehen101.csgoexternal.memory.value.ValueFloat;
 import com.thehen101.csgoexternal.memory.value.ValueInteger;
 
-public class Ticker {
+public class Ticker extends Thread {
 	private final int delayMS;
 
 	public Ticker(int ticksPerSecond) {
 		this.delayMS = 1000 / ticksPerSecond;
 	}
 
-	public void startTicker() {
+	@Override
+	public void run() {
 		for (;;) {
 			this.tick();
 			try {
