@@ -18,7 +18,7 @@ Fastutil - 7.0.13 (https://mvnrepository.com/artifact/it.unimi.dsi/fastutil/7.0.
 
 Gson - 2.8.1 (https://mvnrepository.com/artifact/com.google.code.gson/gson/2.8.1)
 
-JMM - 2.0 (https://mvnrepository.com/artifact/com.github.jonatino/Java-Memory-Manipulation/2.0)
+JMM - 2.1 (https://bintray.com/jonatino/maven/download_file?file_path=com%2Fgithub%2Fjonatino%2FJava-Memory-Manipulation%2F2.1.0%2FJava-Memory-Manipulation-2.1.0.jar)
 
 JNA - 4.4.0 (https://mvnrepository.com/artifact/net.java.dev.jna/jna/4.4.0)
 
