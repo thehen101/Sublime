@@ -51,10 +51,23 @@ public class CheatAimbot extends Cheat {
 			float[] angles = new float[] { pitch, yaw };
 			this.fixAngles(angles);
 			ValueFloat[] aimAngles = this.getPlayerAimAngles();
-			aimAngles[0].setValueFloat(angles[0]);
-			aimAngles[1].setValueFloat(angles[1]);
+			float[] smoothedAngles = new float[] { aimAngles[0].getValueFloat(), aimAngles[1].getValueFloat() };
+			smoothedAngles[0] = smoothedAngles[0] + ((angles[0] - smoothedAngles[0]) / 50.0F);
+			smoothedAngles[1] = smoothedAngles[1] + (this.clampYaw(angles[1] - smoothedAngles[1]) / 50.0F);
+			this.fixAngles(smoothedAngles);
+			aimAngles[0].setValueFloat(smoothedAngles[0]);
+			aimAngles[1].setValueFloat(smoothedAngles[1]);
 			this.target = null;
 		}
+	}
+	
+	private float clampYaw(float yaw) {
+		float newYaw = yaw;
+		while (newYaw > 180.0F)
+			newYaw -= 360.0F;
+		while (newYaw < -180.0F)
+			newYaw += 360.0F;
+		return newYaw;
 	}
 	
 	private void fixAngles(float[] angle) {
