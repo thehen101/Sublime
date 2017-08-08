@@ -10,6 +10,7 @@ import org.jnativehook.keyboard.NativeKeyListener;
 
 import com.thehen101.csgoexternal.CSGOExternal;
 import com.thehen101.csgoexternal.event.EventKeyPressed;
+import com.thehen101.csgoexternal.event.EventKeyReleased;
 
 public class KeyListener extends Thread implements NativeKeyListener {
 
@@ -31,6 +32,7 @@ public class KeyListener extends Thread implements NativeKeyListener {
 
 	@Override
 	public void nativeKeyReleased(NativeKeyEvent e) {
+		CSGOExternal.INSTANCE.getEventManager().callEvent(new EventKeyReleased(e.getKeyCode()));
 	}
 
 	@Override

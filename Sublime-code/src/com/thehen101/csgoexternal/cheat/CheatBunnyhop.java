@@ -1,7 +1,11 @@
 package com.thehen101.csgoexternal.cheat;
 
+import org.jnativehook.keyboard.NativeKeyEvent;
+
 import com.thehen101.csgoexternal.CSGOExternal;
 import com.thehen101.csgoexternal.cheat.base.Cheat;
+import com.thehen101.csgoexternal.event.EventKeyPressed;
+import com.thehen101.csgoexternal.event.EventKeyReleased;
 import com.thehen101.csgoexternal.event.EventLocalPlayerUpdate;
 import com.thehen101.csgoexternal.event.EventTick;
 import com.thehen101.csgoexternal.event.base.Event;
@@ -10,6 +14,7 @@ import com.thehen101.csgoexternal.memory.gameobject.EntityPlayer;
 
 public class CheatBunnyhop extends Cheat {
 	private EntityPlayer localPlayer;
+	private boolean spaceDown;
 
 	public CheatBunnyhop(String cheatName, int cheatKeybind) {
 		super(cheatName, cheatKeybind);
@@ -21,8 +26,18 @@ public class CheatBunnyhop extends Cheat {
 			EventLocalPlayerUpdate update = (EventLocalPlayerUpdate) event;
 			this.localPlayer = update.getLocalPlayer();
 		}
+		if (event instanceof EventKeyPressed) {
+			EventKeyPressed keyPressed = (EventKeyPressed) event;
+			if (keyPressed.getKeyPressed() == NativeKeyEvent.VC_SPACE)
+				this.spaceDown = true;
+		}
+		if (event instanceof EventKeyReleased) {
+			EventKeyReleased keyReleased = (EventKeyReleased) event;
+			if (keyReleased.getKeyReleased() == NativeKeyEvent.VC_SPACE)
+				this.spaceDown = false;
+		}
 		if (event instanceof EventTick) {
-			if (this.localPlayer == null)
+			if (this.localPlayer == null || !this.spaceDown)
 				return;
 			if (this.onGround()) {
 				this.jump();
