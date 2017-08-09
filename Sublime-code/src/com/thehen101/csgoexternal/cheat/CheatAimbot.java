@@ -16,7 +16,7 @@ import com.thehen101.csgoexternal.memory.value.ValueFloat;
 
 public class CheatAimbot extends Cheat {
 	private EntityPlayer localPlayer, target;
-	private final float fov = 30F, speed = 50.0F;
+	private final float fov = 4F, speed = 50.0F;
 	private final int mouseHeldButton = 5;
 	public boolean canAim;
 
@@ -58,6 +58,12 @@ public class CheatAimbot extends Cheat {
 				float[] target = this.getBonePosition(otherPlayer.getBoneManagerAddress(), 8);
 				float[] angles = new float[] { this.getPitch(aimPos, target), this.getYaw(aimPos, target) };
 				ValueFloat[] aimAngles = this.getPlayerAimAngles();
+				if (CSGOExternal.INSTANCE.getCheatManager().getCheat(CheatRecoilControl.class).isEnabled()) {
+					ValueFloat[] vp = this.getPlayerViewPunch(this.localPlayer.getBaseAddress());
+					angles[0] -= vp[0].getValueFloat() * 2.0F;
+					angles[1] -= vp[1].getValueFloat() * 2.0F;
+				}
+				this.fixAngles(angles);
 				float[] myAngles = new float[] { aimAngles[0].getValueFloat(), aimAngles[1].getValueFloat() };
 				float[] angDiff = this.getAngDiff(myAngles, angles);
 				if (this.canAim(angDiff))
