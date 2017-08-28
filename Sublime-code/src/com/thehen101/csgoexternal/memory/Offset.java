@@ -3,6 +3,7 @@ package com.thehen101.csgoexternal.memory;
 public enum Offset {
 	LOCALPLAYER("LocalPlayer"),
 	ENTITYLIST("EntityList"),
+	FORCEATTACK("ForceAttack"),
 	FORCEJUMP("ForceJump"),
 	FORCELEFT("ForceLeft"),
 	FORCERIGHT("ForceRight"),

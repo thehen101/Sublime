@@ -25,6 +25,19 @@
     "offsetFromStart": 1,
     "module": "CLIENT"
   },
+    {
+    "stringSignature": "89 0D ?? ?? ?? ?? 8B 0D ?? ?? ?? ?? 8B F2 8B C1 83 CE 04",
+    "dereferences": [
+      {
+        "offset": 0,
+        "location": "MODULE"
+      }
+    ],
+    "signatureLength": 19,
+    "offset": "FORCEATTACK",
+    "offsetFromStart": 2,
+    "module": "CLIENT"
+  },
   {
     "stringSignature": "89 0D ?? ?? ?? ?? 8B 0D ?? ?? ?? ?? 8B F2 8B C1 83 CE 08",
     "dereferences": [

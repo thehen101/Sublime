@@ -16,7 +16,7 @@ import com.thehen101.csgoexternal.memory.value.ValueFloat;
 
 public class CheatAimbot extends Cheat {
 	private EntityPlayer localPlayer, target;
-	private final float fov = 4F, speed = 50.0F;
+	private final float fov = 3F, speed = 35.0F;
 	private final int mouseHeldButton = 5;
 	public boolean canAim;
 
