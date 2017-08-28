@@ -6,6 +6,7 @@ import org.jnativehook.keyboard.NativeKeyEvent;
 
 import com.thehen101.csgoexternal.CSGOExternal;
 import com.thehen101.csgoexternal.cheat.CheatAimbot;
+import com.thehen101.csgoexternal.cheat.CheatAutoPistol;
 import com.thehen101.csgoexternal.cheat.CheatAutostrafer;
 import com.thehen101.csgoexternal.cheat.CheatBunnyhop;
 import com.thehen101.csgoexternal.cheat.CheatGlowESP;
@@ -21,6 +22,7 @@ public class CheatManager implements Listener {
 	public CheatManager() {
 		CSGOExternal.INSTANCE.getEventManager().addListener(this);
 		this.cheatList.add(new CheatAimbot("Aimbot", NativeKeyEvent.VC_HOME));
+		this.cheatList.add(new CheatAutoPistol("AutoPistol", NativeKeyEvent.VC_DELETE));
 		this.cheatList.add(new CheatAutostrafer("Autostrafer", NativeKeyEvent.VC_PAGE_UP));
 		this.cheatList.add(new CheatBunnyhop("Bunnyhop", NativeKeyEvent.VC_PAGE_DOWN));
 		this.cheatList.add(new CheatGlowESP("GlowESP", NativeKeyEvent.VC_END));
