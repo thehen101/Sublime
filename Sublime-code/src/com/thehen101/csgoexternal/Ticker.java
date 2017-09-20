@@ -46,14 +46,13 @@ public class Ticker extends Thread {
 		this.setupPlayer(localPlayer, playerAddress);
 		CSGOExternal.INSTANCE.getEventManager().callEvent(new EventLocalPlayerUpdate(localPlayer));
 
-		final int maxPlayers = CSGOExternal.INSTANCE.getCSGOProcess()
-				.readInt(Offset.ENGINEPOINTER.getAddress() + Offset.ENTITYLOOPDISTANCE.getAddress());
+		final int maxPlayers = 64;
 
 		for (int i = 0; i < maxPlayers; i++) {
 			EntityPlayer otherPlayer = new EntityPlayer();
 			final int opa = CSGOExternal.INSTANCE.getCSGOProcess().readInt(
 					Offset.ENTITYLIST.getAddress() + (0x10 * i));
-			if (opa != 0)
+			if (opa != 0) {
 				if (this.setupPlayer(otherPlayer, opa)) {
 					if (this.validatePlayer(otherPlayer)) {
 						CSGOExternal.INSTANCE.getEventManager().callEvent(new EventEntityPlayerLooped(otherPlayer));
@@ -66,6 +65,9 @@ public class Ticker extends Thread {
 							CSGOExternal.INSTANCE.getEventManager().callEvent(new EventPlayerGlowLooped(otherPlayer, glowEntity));
 					}
 				}
+			} else {
+				break;
+			}
 		}
 		CSGOExternal.INSTANCE.getEventManager().callEvent(new EventTick());
 	}

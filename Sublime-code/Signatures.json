@@ -12,7 +12,7 @@
     "offsetFromStart": 1,
     "module": "CLIENT"
   },
-    {
+  {
     "stringSignature": "BB ?? ?? ?? ?? 83 FF 01 0F 8C ?? ?? ?? ?? 3B F8",
     "dereferences": [
       {
@@ -25,7 +25,7 @@
     "offsetFromStart": 1,
     "module": "CLIENT"
   },
-    {
+  {
     "stringSignature": "89 0D ?? ?? ?? ?? 8B 0D ?? ?? ?? ?? 8B F2 8B C1 83 CE 04",
     "dereferences": [
       {
@@ -118,19 +118,6 @@
     "signatureLength": 13,
     "offset": "SETVIEWANGLES",
     "offsetFromStart": 4,
-    "module": "ENGINE"
-  },
-  {
-    "stringSignature": "A1 ?? ?? ?? ?? 8B 80 ?? ?? ?? ?? C3 CC CC CC CC 55 8B EC 8A 45 08",
-    "dereferences": [
-      {
-        "offset": 0,
-        "location": "MODULE"
-      }
-    ],
-    "signatureLength": 22,
-    "offset": "ENTITYLOOPDISTANCE",
-    "offsetFromStart": 7,
     "module": "ENGINE"
   }
 ]

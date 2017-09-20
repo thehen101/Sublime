@@ -9,8 +9,7 @@ public enum Offset {
 	FORCERIGHT("ForceRight"),
 	GLOWMANAGER("GlowManager"),
 	ENGINEPOINTER("EnginePointer"),
-	SETVIEWANGLES("SetViewAngles"),
-	ENTITYLOOPDISTANCE("EntityLoopDistance");
+	SETVIEWANGLES("SetViewAngles");
 
 	private final String name;
 	private Signature signature;
