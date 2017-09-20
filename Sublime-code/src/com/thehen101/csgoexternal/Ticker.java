@@ -65,8 +65,6 @@ public class Ticker extends Thread {
 							CSGOExternal.INSTANCE.getEventManager().callEvent(new EventPlayerGlowLooped(otherPlayer, glowEntity));
 					}
 				}
-			} else {
-				break;
 			}
 		}
 		CSGOExternal.INSTANCE.getEventManager().callEvent(new EventTick());
