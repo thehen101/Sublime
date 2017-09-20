@@ -42,7 +42,7 @@ public class Ticker extends Thread {
 	 */
 	private void tick() {
 		EntityPlayer localPlayer = new EntityPlayer();
-		int playerAddress = CSGOExternal.INSTANCE.getCSGOProcess().readInt(Offset.LOCALPLAYER.getAddress());
+		final int playerAddress = CSGOExternal.INSTANCE.getCSGOProcess().readInt(Offset.LOCALPLAYER.getAddress());
 		this.setupPlayer(localPlayer, playerAddress);
 		CSGOExternal.INSTANCE.getEventManager().callEvent(new EventLocalPlayerUpdate(localPlayer));
 
@@ -55,14 +55,16 @@ public class Ticker extends Thread {
 					Offset.ENTITYLIST.getAddress() + (0x10 * i));
 			if (opa != 0)
 				if (this.setupPlayer(otherPlayer, opa)) {
-					CSGOExternal.INSTANCE.getEventManager().callEvent(new EventEntityPlayerLooped(otherPlayer));
+					if (this.validatePlayer(otherPlayer)) {
+						CSGOExternal.INSTANCE.getEventManager().callEvent(new EventEntityPlayerLooped(otherPlayer));
 					
-					int glowManagerAddress = CSGOExternal.INSTANCE.getCSGOProcess().readInt(Offset.GLOWMANAGER.getAddress());
-					int glowAddress = glowManagerAddress + (0x38 * otherPlayer.getGlowIndex().getValueInteger());
-					GlowEntity glowEntity = new GlowEntity(glowAddress, 
-							CSGOExternal.INSTANCE.getCSGOProcess().read(glowAddress, 0x38));
-					if (glowAddress != 0)
-						CSGOExternal.INSTANCE.getEventManager().callEvent(new EventPlayerGlowLooped(otherPlayer, glowEntity));
+						int glowManagerAddress = CSGOExternal.INSTANCE.getCSGOProcess().readInt(Offset.GLOWMANAGER.getAddress());
+						int glowAddress = glowManagerAddress + (0x38 * otherPlayer.getGlowIndex().getValueInteger());
+						GlowEntity glowEntity = new GlowEntity(glowAddress, 
+								CSGOExternal.INSTANCE.getCSGOProcess().read(glowAddress, 0x38));
+						if (glowAddress != 0)
+							CSGOExternal.INSTANCE.getEventManager().callEvent(new EventPlayerGlowLooped(otherPlayer, glowEntity));
+					}
 				}
 		}
 		CSGOExternal.INSTANCE.getEventManager().callEvent(new EventTick());
@@ -121,8 +123,29 @@ public class Ticker extends Thread {
 			ep.setGlowIndexAddress(glowIndex);
 			return true;
 		} catch (Exception e) {
+			System.out.println(Integer.toHexString(add));
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	private boolean validatePlayer(EntityPlayer ep) {
+		if (ep.getBaseAddress() == 0 || ep.getBoneManagerAddress() == 0)
+			return false;
+		if (ep.getDormant() == null || ep.getFlags() == null
+				|| ep.getGlowIndex() == null || ep.getHealth() == null
+				|| ep.getImmune() == null|| ep.getLifeState() == null
+				|| ep.getNetvarOffsets() == null || ep.getPos() == null
+				|| ep.getTeam() == null || ep.getViewOffset() == null)
+			return false;
+		try {
+			MemoryBuffer boneBuffer = CSGOExternal.INSTANCE.getCSGOProcess().read(
+					ep.getBoneManagerAddress(), 0x30);
+			if (boneBuffer == null)
+				throw new Exception();
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
 }
