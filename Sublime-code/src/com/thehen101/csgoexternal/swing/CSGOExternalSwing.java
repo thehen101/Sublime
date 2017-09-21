@@ -1,5 +1,8 @@
 package com.thehen101.csgoexternal.swing;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -59,6 +62,12 @@ public class CSGOExternalSwing {
 		menuBar.add(mnFile);
 		
 		JMenuItem mntmExit = new JMenuItem("Exit");
+		mntmExit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent actionEvent) {
+				System.exit(0);
+			}
+		});
 		mnFile.add(mntmExit);
 		
 		frame.setVisible(true);
