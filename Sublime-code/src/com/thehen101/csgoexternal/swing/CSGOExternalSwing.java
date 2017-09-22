@@ -1,8 +1,12 @@
 package com.thehen101.csgoexternal.swing;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.GroupLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -12,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class CSGOExternalSwing {
 	
@@ -42,10 +48,55 @@ public class CSGOExternalSwing {
 		frame.getContentPane().add(tabbedPane);
 		
 		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_1, null);
+		tabbedPane.addTab("Main", null, panel_1, null);
+		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
+		panel_1.add(Box.createHorizontalGlue());
+		JLabel label = new JLabel("Sublime");
+		label.setFont(new Font("Tahoma", Font.BOLD, 48));
+		panel_1.add(label);
+		panel_1.add(Box.createHorizontalGlue());
 		
 		JPanel panel = new JPanel();
-		tabbedPane.addTab("New tab", null, panel, null);
+		tabbedPane.addTab("Cheats", null, panel, null);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		
+		JLabel lblNewLabel_4 = new JLabel("New label");
+		
+		JLabel lblNewLabel_5 = new JLabel("New label");
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel_1)
+						.addComponent(lblNewLabel_2)
+						.addComponent(lblNewLabel_3)
+						.addComponent(lblNewLabel_4)
+						.addComponent(lblNewLabel_5))
+					.addContainerGap(389, Short.MAX_VALUE))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblNewLabel_1)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblNewLabel_2)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblNewLabel_3)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblNewLabel_4)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblNewLabel_5)
+					.addContainerGap(146, Short.MAX_VALUE))
+		);
+		panel.setLayout(gl_panel);
 		
 		JLabel lblNewLabel = new JLabel("Sublime - A FOSS project available on");
 		lblNewLabel.setBounds(4, 280, 184, 14);
