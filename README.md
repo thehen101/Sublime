@@ -1,8 +1,10 @@
 # Sublime
-A free, external and undetected Java CS:GO cheat. I am to eventually support all three platforms that CS:GO supports - those being Windows, Mac and Linux. However, only Windows is supported at the moment.
+A free, external and undetected Java CS:GO cheat. I plan to eventually support all three platforms that CS:GO supports - those being Windows, Mac and Linux. However, only Windows is supported at the moment.
 
 ## Cheats included:
 Aimbot
+
+AutoPistol
 
 Autostrafer
 
