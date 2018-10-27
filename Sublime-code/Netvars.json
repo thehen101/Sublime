@@ -37,10 +37,14 @@
   },
   {
     "name": "IMMUNE",
-    "offset": 14512
+    "offset": 14528
   },
   {
     "name": "GLOWINDEX",
-    "offset": 41728
+    "offset": 41796
+  },
+  {
+    "name": "CROSSHAIR",
+    "offset": 45788
   }
 ]

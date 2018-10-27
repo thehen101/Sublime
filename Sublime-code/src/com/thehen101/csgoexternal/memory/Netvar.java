@@ -11,7 +11,8 @@ public enum Netvar {
 	BONEMANAGER("BoneManager"),
 	VIEWPUNCH("ViewPunch"),
 	IMMUNE("Immune"),
-	GLOWINDEX("GlowIndex");
+	GLOWINDEX("GlowIndex"),
+	CROSSHAIR("Crosshair");
 
 	private final String name;
 	private int offset;
